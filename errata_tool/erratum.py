@@ -739,6 +739,28 @@ https://access.redhat.com/articles/11258")
             self._processResponse(r)
         self._buildschanged = True
 
+
+    def addComment(self, comment):
+        """5.2.1.8. POST /api/v1/erratum/{id}/add_comment
+
+        Add a comment to an advisory.
+        Example request body:
+
+            {"comment": "This is my comment"}
+
+        The response body is the updated or unmodified advisory, in the same format as GET /api/v1/erratum/{id}.
+
+        https://errata.devel.redhat.com/developer-guide/api-http-api.html#api-post-apiv1erratumidadd_comment
+
+        :param dict comment: The metadata object to add as a comment
+        """
+
+        val = "{\"comment\": \"%c\" }" % comment
+        url = "/api/v1/comments/{id}" % self.errata_id
+
+        r = self._post(url, json=val)
+        self._processResponse(r)
+
     def _write(self):
         pdata = {}
 
